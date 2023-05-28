@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>hex test</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="hex.css">
+        <script src="https://code.jquery.com/jquery-3.6.4.min.js" integrity="sha256-oP6HI9z1XaZNBrJURtCoUT5SUnxFr8s3BzRl+cbzUq8=" crossorigin="anonymous"></script>
+        <script>
+
+function hexes() {
+    var ResizeTimer = null;
+    $(window).resize(function() {
+      if(ResizeTimer != null) window.clearTimeout(ResizeTimer);
+      ResizeTimer = window.setTimeout(function() {
+        screensize();
+      }, 200);
+    });
+    // initial draw
+    screensize();
+
+    function randcolor() {
+      var colors = ['#021d49', '#00babc', '#ff671d', '#84dade', '#4a4f54', '#d0d3d4'];
+        return colors[Math.floor(Math.random() * colors.length)];
+      }
+
+    function draw(numHexes, numRand, tilt) {
+      console.log(window.innerWidth,numHexes,numRand, tilt, $('.hexes').width());
+      $('div.hex').remove();
+      for (var i = 0; i < numHexes; i++) {
+        $( "<div class='hex'></div>" ).appendTo( ".hex-container" ).css('background', randcolor());
+      }
+      var rand = [];
+      for (var j = 0; j <= numRand; j++) {
+        rand[j] = Math.floor(Math.random() * numHexes + 1 );
+        $('div.hex:nth-of-type('+rand[j]+')').css('background','transparent');
+      }
+      $('.hexes').css('transform','rotate('+tilt+'deg');
+   }
+
+    function screensize() {
+      var screenWidth = window.innerWidth;
+      if (screenWidth > 2001) {
+        draw(30, 10, 20);
+        return;
+      }
+      if (screenWidth < 2000 && screenWidth > 951) {
+        draw(20, 6, 15);
+        return;
+      }
+      if (screenWidth < 950) {
+        draw(16, 5, 10);
+        return;
+      } 
+    }
+  }
+
+        </script> 
+    </head>
+    <body>
+    <script>
+        $( document ).ready(function() {
+            hexes();
+         })
+    </script>
+    </script>
+        <div class="hexwrap">
+            <div class="hexes">
+                <div class="hex-container">
+                    
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
